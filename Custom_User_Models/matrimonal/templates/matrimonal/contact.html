@@ -1,0 +1,81 @@
+{% extends 'matrimonal/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Contact Us!</h1>
+
+ {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post">
+
+        {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            <input type="text" class="form-control" name="{{ form.name.name }}" value="{{ form.name.value }}">
+            {% if form.name.errors %}
+                <div class="text-danger">
+                    {% for error in form.name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            <input type="email" class="form-control" name="{{ form.email.name }}" value="{{ form.email.value }}">
+            {% if form.email.errors %}
+                <div class="text-danger">
+                    {% for error in form.email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.verify_email.label_tag }}
+            <input type="email" class="form-control" name="{{ form.verify_email.name }}" value="{{ form.verify_email.value }}">
+            {% if form.verify_email.errors %}
+                <div class="text-danger">
+                    {% for error in form.verify_email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.message.label_tag }}
+            <textarea class="form-control" name="{{ form.message.name }}">{{ form.message.value }}</textarea>
+            {% if form.message.errors %}
+                <div class="text-danger">
+                    {% for error in form.message.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <style>
+
+            form{
+            
+                margin-bottom: 40px;
+            }
+            
+            </style>
+
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+{% endblock %}

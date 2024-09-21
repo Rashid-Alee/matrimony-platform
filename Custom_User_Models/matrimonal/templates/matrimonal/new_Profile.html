@@ -1,0 +1,29 @@
+{% extends 'matrimonal/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+
+form{
+
+    margin-bottom: 40px;
+}
+
+</style>
+
+<h1>Add New Profile!</h1>
+
+
+    <form method="post" enctype="multipart/form-data">
+        {{form.as_p}}
+
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+{% endblock %}
+
+{% if form.errors %}
+    <div class="form-errors">
+        {{ form.errors }}
+    </div>
+{% endif %}

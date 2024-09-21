@@ -1,0 +1,53 @@
+<!-- blog/templates/blog/post_detail.html -->
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>By {{ post.author }} on {{ post.published_date }}</p>
+    <div>
+        {{ post.body }}
+    </div>
+
+    <h2>Comments</h2>
+    <ul class="list-group">
+        {% for comment in comments %}
+            <li class="list-group-item">
+                <strong>{{ comment.author }}:</strong> {{ comment.text }} <br>
+                <small>Posted on {{ comment.created_date }}</small>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No comments yet.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Button to show the comment form -->
+    <button id="show-comment-form" class="btn btn-primary mt-3">Leave a Comment</button>
+
+    <!-- Comment form (initially hidden) -->
+    <div id="comment-form" class="mt-3" style="display: none;">
+        <h3>Leave a Comment</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Post Comment</button>
+        </form>
+    </div>
+
+    <a href="{% url 'blog_home' %}" class="btn btn-secondary mt-3">Back to blog home</a>
+
+    <!-- JavaScript to toggle the comment form -->
+    <script>
+        document.getElementById('show-comment-form').addEventListener('click', function () {
+            var form = document.getElementById('comment-form');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}index{% endblock %}
+
+{% block content  %}
+        <h1>this is index page</h1>
+        <h2>list of pages by rashid</h2>
+        <ul>
+
+            {% for page in pages %}
+             <li>{{page}}</li>
+                
+            {% endfor %}
+
+        </ul>
+
+        <h2>list of courses</h2>
+        <ol>
+                
+                {%for course in courses%}
+                <li>{{course}}</li>
+
+                {% endfor %}
+        </ol>
+
+
+        <a href="{% url 'myapp:home'%}">go to home page</a>
+
+
+
+
+    
+        {% endblock content  %}
